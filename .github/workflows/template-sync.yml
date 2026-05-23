@@ -14,9 +14,9 @@ jobs:
         uses: AndreasAugustin/actions-template-sync@v1
         with:
           # 你的 GitHub Token，系统自动提供，无需修改
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.YOUR_PERSONAL_TOKEN }}
           # 把下面这行替换成上游模板仓库的完整名称（用户名/仓库名）
-          source_repo_path: 上游用户名/模板仓库名
+          source_repo_path: sansan0/TrendRadar
           # 上游模板仓库的分支，通常是 main
           upstream_branch: master
           # 同步后自动发起的 PR 标题（可自定义）
