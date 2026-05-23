@@ -10,6 +10,8 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: 执行模板同步
         uses: AndreasAugustin/actions-template-sync@v1
         with:
