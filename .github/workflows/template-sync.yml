@@ -1,9 +1,10 @@
-name: Template Sync
-
+name: 自动同步上游模板
 on:
-  workflow_dispatch:
+  # 方式一：每天零点自动执行（UTC时间）
   schedule:
-    - cron: "0 2 * * *"
+    - cron: '0 0 * * *'
+  # 方式二：允许你随时手动触发
+  workflow_dispatch:
 
 jobs:
   sync:
@@ -11,12 +12,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: 执行模板同步
         uses: AndreasAugustin/actions-template-sync@v1
         with:
+          # 你的 GitHub Token，系统自动提供，无需修改
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 把下面这行替换成上游模板仓库的完整名称（用户名/仓库名）
           source_repo_path: sansan0/TrendRadar
-          upstream_branch: main
+          # 上游模板仓库的分支，通常是 main
+          upstream_branch: master
+          # 同步后自动发起的 PR 标题（可自定义）
           pr_title: '同步上游模板的最新更改'
           pr_body: '此 PR 由自动化工作流创建，请检查后合并。'
