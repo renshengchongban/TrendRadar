@@ -12,6 +12,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/sansan0/TrendRadar?style=flat-square&logo=github&color=yellow)](https://github.com/sansan0/TrendRadar/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/sansan0/TrendRadar?style=flat-square&logo=github&color=blue)](https://github.com/sansan0/TrendRadar/network/members)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=flat-square)](LICENSE)
+[![Version](https://img.shields.io/badge/version-v6.7.1-blue.svg)](https://github.com/sansan0/TrendRadar)
 [![Version](https://img.shields.io/badge/version-v6.8.0-blue.svg)](https://github.com/sansan0/TrendRadar)
 [![MCP](https://img.shields.io/badge/MCP-v4.0.4-green.svg)](https://github.com/sansan0/TrendRadar)
 [![RSS](https://img.shields.io/badge/RSS-订阅源支持-orange.svg?style=flat-square&logo=rss&logoColor=white)](https://github.com/sansan0/TrendRadar)
@@ -241,6 +242,12 @@
 - **提示**：建议查看【历史更新】，明确具体的【功能内容】
 
 
+### 2026/05/15 - v6.7.0
+
+- **Markdown 导出**：报告导出下拉菜单新增 Markdown 格式，一键生成带链接的结构化文本，方便 LLM 二次加工和跨平台分享（[#1121](https://github.com/sansan0/TrendRadar/issues/1121)）
+- **RSS guid 去重**：RSS 存储新增 guid 字段，去重优先级改为 guid > url，解决同一文章因 URL 变化导致重复入库的问题
+- **空标题防护**：解析器、渲染层、翻译回填全链路增加空标题兜底逻辑，确保无标题条目也能正常显示
+- **翻译质量增强**：翻译提示词要求保留编号顺序，空翻译结果不再覆盖原始标题
 ### 2026/05/23 - v6.8.0
 
 - **HTML 报告全面增强**：新增报告元数据展示（生成时间、数据来源、版本号）、暗色模式自动适配、Tab 栏交互优化、趋势箭头可视化，浏览器阅读体验大幅提升
