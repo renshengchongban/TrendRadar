@@ -1423,8 +1423,6 @@ def render_html_content(
                         <button class="save-btn" onclick="saveAsImage(event)">导出</button>
                         <button class="save-dropdown-trigger">▾</button>
                         <div class="save-dropdown-menu">
-                            <button class="save-dropdown-item" onclick="saveAsImage()"><svg class="dropdown-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><circle cx="8" cy="7.5" r="2.5"/><path d="M12 4h.01"/></svg>整页截图</button>
-                            <button class="save-dropdown-item" onclick="saveAsMultipleImages()"><svg class="dropdown-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="10" height="10" rx="1.5"/><path d="M5 4V2.5A1.5 1.5 0 016.5 1h7A1.5 1.5 0 0115 2.5v7a1.5 1.5 0 01-1.5 1.5H12"/></svg>分段截图</button>
                             <button class="save-dropdown-item" onclick="saveAsImage(event)"><svg class="dropdown-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><circle cx="8" cy="7.5" r="2.5"/><path d="M12 4h.01"/></svg>整页截图</button>
                             <button class="save-dropdown-item" onclick="saveAsMultipleImages(event)"><svg class="dropdown-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="10" height="10" rx="1.5"/><path d="M5 4V2.5A1.5 1.5 0 016.5 1h7A1.5 1.5 0 0115 2.5v7a1.5 1.5 0 01-1.5 1.5H12"/></svg>分段截图</button>
                             <button class="save-dropdown-item" onclick="saveAsMarkdown()"><svg class="dropdown-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 2h11A1.5 1.5 0 0115 3.5v9a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 011 12.5v-9A1.5 1.5 0 012.5 2z"/><path d="M4 11V5l2.5 3L9 5v6"/><path d="M11.5 8v3m0 0l-1.5-2m1.5 2l1.5-2"/></svg>Markdown</button>
@@ -2305,11 +2303,14 @@ def render_html_content(
                 initTabVisibility();
                 initTabScroll(tabBar);
 
-                function activateTab(index) {
+                function activateTab(index, scroll) {
                     tabs.forEach(function(t) { t.classList.remove('active'); });
                     if (index === 'all') {
                         var allBtn = tabBar.querySelector('[data-tab-index="all"]');
-                        if (allBtn) allBtn.classList.add('active');
+                        if (allBtn) {
+                            allBtn.classList.add('active');
+                            if (scroll !== false) allBtn.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+                        }
                         groups.forEach(function(g) { g.style.display = ''; });
                         try { history.replaceState(null, '', '#all'); } catch(e) {}
                         return;
@@ -2324,7 +2325,7 @@ def render_html_content(
                         });
                     }
                     var activeBtn = tabBar.querySelector('.tab-btn.active');
-                    if (activeBtn) activeBtn.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+                    if (scroll !== false && activeBtn) activeBtn.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
                     try { history.replaceState(null, '', '#tab-' + idx); } catch(e) {}
                 }
 
@@ -2351,7 +2352,7 @@ def render_html_content(
                 var hash = window.location.hash;
                 if (hash === '#all') { activateTab('all'); }
                 else if (hash.indexOf('#tab-') === 0) { activateTab(parseInt(hash.replace('#tab-', ''))); }
-                else { activateTab(0); }
+                else { activateTab(0, false); }
             }
 
             function initTabVisibility() {
